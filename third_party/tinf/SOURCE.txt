@@ -1,0 +1,3 @@
+https://github.com/jibsen/tinf
+Commit: 57ffa1f1d5e3dde19011b2127bd26d01689b694b
+Unmodified upstream files; zlib license.

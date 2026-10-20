@@ -1,0 +1,130 @@
+# Preset navigation, four voices, MIDI, macro ranges and a reliable panic.
+wait 700
+expect program 0
+midi C0 03 00
+wait 30
+expect program 3
+midi B0 13 00
+wait 20
+shot neverhood.png
+wav neverhood.wav
+key 7 down
+wait 300
+shot note.png
+key 11 down
+key 14 down
+key 19 down
+wait 100
+expect voices 1
+key 7 up
+key 11 up
+key 14 up
+key 19 up
+wait 500
+wavstop
+expect peak_db_min -35
+peakreset
+wav silence.wav
+wait 100
+wavstop
+expect peak_db_max -70
+expect voices 0
+midi C0 00 00
+wait 20
+turn PRESET -1
+expect program 21
+turn PRESET 1
+expect program 0
+midi C0 03 00
+wait 20
+turn K1 60
+expect tone 100
+turn K1 -120
+expect tone 0
+turn K1 25
+expect tone 50
+tap FX
+expect controls 1
+shot macros.png
+tap FX
+expect controls 0
+# Last valid program and the first out-of-range program.
+midi C0 15 00
+wait 20
+expect program 21
+midi C0 16 00
+wait 20
+expect program 21
+midi C0 0A 00
+wait 20
+expect program 10
+# A key held through an octave change must release its original pitch.
+key 7 down
+wait 100
+tap OCT+
+key 7 up
+wait 1200
+expect voices 0
+expect octave 1
+# Sustain pedal, and a program change must not leave pedal-held voices hanging.
+midi 90 3C 64
+wait 80
+midi B0 40 7F
+midi 80 3C 00
+wait 400
+expect voices 1
+midi B0 40 00
+wait 1200
+expect voices 0
+midi 90 3C 64
+wait 80
+tap PLAY
+wait 20
+expect voices 0
+peakreset
+wait 100
+expect peak_db_max -80
+expect faults 0
+expect dropped 0
+# FX edits are temporary: every preset selection reloads its defaults.
+midi C0 03 00
+wait 20
+turn K1 25
+turn K2 -25
+turn K3 10
+turn K4 30
+expect tone 100
+expect motion 0
+expect decay 70
+expect room 85
+turn PRESET 1
+expect program 4
+expect tone 50
+expect motion 50
+expect decay 50
+expect room 25
+turn K1 -10
+turn K4 20
+turn PRESET -1
+expect program 3
+expect tone 50
+expect motion 50
+expect decay 50
+expect room 25
+turn K2 -20
+turn SELECT 1
+turn SELECT -1
+expect motion 50
+turn K3 -20
+turn ALGO 1
+turn ALGO -1
+expect program 3
+expect decay 50
+turn K4 30
+midi C0 0A 00
+wait 20
+midi C0 03 00
+wait 20
+expect room 25
+expect faults 0
+expect dropped 0

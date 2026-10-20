@@ -1,0 +1,12 @@
+name = "neverhood"
+id_prefix = "FM-1_7318"
+usb_manufacturer = "FM1 Experiments"
+usb_product = "Neverhood FM-1"
+o2 = ["clay_synth.c", "klaymen.c", "effects_kit.c", "music_bank.c", "player.c"]
+# Dependencies/toolchains live under the project, outside our application's register check.
+vendored = [".deps/", "third_party/"]
+device_include = ["third_party/compat"]
+words = "words.tsv"
+ble = false
+usb_audio_out = false
+gen = ["scripts/gen-menu-room.py --out {gen}/menu_room.h", "scripts/prepare-theme.py --out {gen}/theme_data.h", "scripts/gen-fx-panel.py --out {gen}/fx_panel.h", "scripts/gen-art.py --out {gen}/clay_room.h", "scripts/gen-dsp.py --out {gen}/synth_tables.h", "scripts/gen-fonts.py --out {gen}/felucca_font.h", "scripts/gen-wordmark.py --out {gen}/neverhood_wordmark.h", "scripts/gen-klaymen.py --out {gen}/klaymen_art.h", "scripts/gen-effects-kit.py --out {gen}/effects_data.h", "scripts/gen-music-bank.py --out {gen}/music_data.h"]
